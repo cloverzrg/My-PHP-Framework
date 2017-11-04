@@ -9,13 +9,18 @@
 namespace app\controller;
 
 use \core\lib\request;
+use \core\lib\Controller;
+use \core\lib\Model;
 
-class indexController
+class IndexController extends Controller
 {
 
     public function index()
     {
         echo 'here is index<br>';
         echo request::get("name");
+
+        $a = new Model();
+        $this->display();
     }
 }

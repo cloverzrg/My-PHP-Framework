@@ -4,6 +4,8 @@
  * User: zhurungen
  * Date: 2017/11/4
  * Time: 3:25
+ *
+ * 框架函数库
  */
 
 function p($var)

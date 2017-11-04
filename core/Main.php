@@ -8,21 +8,23 @@
 
 namespace core;
 
-use \core\lib\route;
-use \core\lib\request;
-
-class main
+use \core\lib\Route;
+use \core\lib\Request;
+use \core\lib\Config;
+class Main
 {
 
     // 框架流程控制
     public static function start()
     {
         // 路由
-        $controller = route::getController();
-        $action = route::getAction();
+        $controller = Route::getController();
+        $action = Route::getAction();
 
         // 初始化请求类
-        request::init();
+        Request::init();
+        Config::init();
+        p(Config::get("REDIS.HOST"));
 
         // 引入控制器
         $class_file = APP.'controller'.DS.$controller.'Controller.php';

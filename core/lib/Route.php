@@ -4,11 +4,13 @@
  * User: zhurungen
  * Date: 2017/11/4
  * Time: 3:49
+ *
+ * 路由类
  */
 
 namespace core\lib;
 
-class route
+class Route
 {
     private static $route = array();
 
@@ -31,11 +33,11 @@ class route
         }
 
         $arr = explode('/', trim($str, '/'));
-        self::$route = array('controller' => 'index', 'action' => 'index');
+        self::$route = array('controller' => 'Index', 'action' => 'index');
 
         // 空字符串 explode 返回array([0]=>'');
         if (isset($arr[0]) && $arr[0]) {
-            self::$route['controller'] = $arr[0];
+            self::$route['controller'] = ucfirst($arr[0]);
         } else {
             return self::$route;
         }

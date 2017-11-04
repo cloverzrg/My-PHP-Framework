@@ -4,12 +4,14 @@
  * User: zhurungen
  * Date: 2017/11/4
  * Time: 15:54
+ *
+ * 请求类
  */
 
 namespace core\lib;
 
 
-class request
+class Request
 {
 
     private static $get_data = array();

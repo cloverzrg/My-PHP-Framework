@@ -28,10 +28,10 @@ require_once CORE . 'function.php';
 require_once APP . 'function.php';
 
 // 框架
-require_once CORE . 'main.php';
+require_once CORE . 'Main.php';
 
 // 注册自动加载类
-spl_autoload_register('\core\main::loader');
+spl_autoload_register('\core\Main::loader');
 
 // 启动框架
 main::start();
