@@ -14,7 +14,7 @@ use core\lib\Request;
 
 class CSRF
 {
-    private static $token_key = '_token';
+    public static $token_key = '_token';
     private static $session_key = 'CSRF-TOKEN';
     private static $token_len = 32;
     private static $token = '';

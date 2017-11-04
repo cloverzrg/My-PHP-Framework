@@ -17,21 +17,21 @@ class Request
     private static $get_data = array();
     private static $post_data = array();
 
-    public static function get($key)
+    public static function get($key,$default = null)
     {
         if (isset(self::$get_data[$key])) {
             return self::$get_data[$key];
         } else {
-            return null;
+            return $default;
         }
     }
 
-    public static function post($key)
+    public static function post($key,$default = null)
     {
         if (isset(self::$post_data[$key])) {
             return self::$post_data[$key];
         } else {
-            return null;
+            return $default;
         }
     }
 
