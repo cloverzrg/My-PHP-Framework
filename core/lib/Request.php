@@ -37,9 +37,9 @@ class Request
 
     public static function init()
     {
-        if (isset($_GET['s'])){
+        if (isset($_GET['s'])) {
             $str = $_GET['s'];
-        }else{
+        } else {
             $str = '';
         }
         $arr = explode('/', trim($str, '/'));
@@ -50,8 +50,7 @@ class Request
                 self::$get_data[$arr[$i]] = $arr[$i + 1];
             }
         }
-
-        foreach($_POST as $key => $value){
+        foreach ($_POST as $key => $value) {
             self::$post_data[$key] = $value;
         }
     }

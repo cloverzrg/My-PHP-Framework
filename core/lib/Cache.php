@@ -90,4 +90,10 @@ class Cache
         $redis->set($key, $i);
         return $i;
     }
+
+
+    public static function dec($key, $d = 1)
+    {
+        return self::inc($key, $d * -1);
+    }
 }

@@ -35,7 +35,7 @@ class Redis
         self::$handler->connect(Config::get('REDIS.HOST'), Config::get('REDIS.PORT'));
     }
 
-    public function getInstance($db = 0)
+    public static function getInstance($db = 0)
     {
         if (self::$handler == null) {
             self::getRedis();

@@ -8,11 +8,11 @@
 
 
 return [
-    //配置文件前缀
-    'CONFIG_PREFIX'=>'DB',
-    'TYPE'=>'mysql',
-    'HOST'=>'127.0.0.1',
-    'DATABASE'=>'TEST',
-    'USER'=>'root',
-    'PASSWORD'=>'root',
+    //配置文件前缀,如配置前缀为'DB' 后获取 HOST 值的方式是 Config::get('DB.HOST')
+    'CONFIG_PREFIX' => 'DB',
+    'TYPE' => 'mysql',
+    'HOST' => '127.0.0.1',
+    'DATABASE' => 'TEST',
+    'USER' => 'root',
+    'PASSWORD' => 'root',
 ];

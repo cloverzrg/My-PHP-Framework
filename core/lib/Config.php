@@ -11,11 +11,14 @@
 namespace core\lib;
 
 use core\lib\driver\Redis;
+
 class Config
 {
     private static $config_data = [];
 
-    /*
+    /**
+     * @param $name
+     * @return array|mixed
      * 当获取的值是数组时,返回数组
      * 当获取的是具体值,则返回值
      * REDIS.HOST返回值,
@@ -46,7 +49,6 @@ class Config
             self::$config_data = array_merge(self::$config_data, $database);
         }
 
-//        $redis->set("Config:data",serialize(self::$config_data));
     }
 
 

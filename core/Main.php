@@ -11,8 +11,7 @@ namespace core;
 use \core\lib\Route;
 use \core\lib\Request;
 use \core\lib\Config;
-use \core\lib\driver\Redis;
-use \core\lib\Cache;
+use \core\lib\CSRF;
 
 class Main
 {
@@ -20,6 +19,8 @@ class Main
     // 框架流程控制
     public static function start()
     {
+        session_start();
+
         // 路由
         $controller = Route::getController();
         $action = Route::getAction();
@@ -28,19 +29,25 @@ class Main
         Request::init();
         Config::init();
 
+        if (Config::get('CSRF')){
+            if ($_SERVER['REQUEST_METHOD']=="POST"){
+                CSRF::check();
+            }
+            CSRF::generateToken();
+        }
         //初始化框架
         self::init();
 
 
         // 引入控制器
-        $class_file = APP.'controller'.DS.$controller.'Controller.php';
-        $class_name = '\\app\\'.'controller\\'.$controller.'Controller';
+        $class_file = APP . 'controller' . DS . $controller . 'Controller.php';
+        $class_name = '\\app\\' . 'controller\\' . $controller . 'Controller';
 
-        if (is_file($class_file)){
+        if (is_file($class_file)) {
             require_once $class_file;
             $contr = new $class_name;
             $contr->$action();
-        }else{
+        } else {
             throw new \Exception("找不到控制器");
         }
 
@@ -51,9 +58,9 @@ class Main
     private static function init()
     {
         // 调试模式
-        if (Config::get('DEBUG')){
+        if (Config::get('DEBUG')) {
             ini_set('display_error', 'On');
-        }else{
+        } else {
             ini_set('display_error', 'Off');
         }
     }

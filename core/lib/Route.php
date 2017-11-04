@@ -26,9 +26,9 @@ class Route
          * get请求 index.php?s=/index/notice/aid/12
          * 找出控制器和方法
          */
-        if (isset($_GET['s'])){
+        if (isset($_GET['s'])) {
             $str = $_GET['s'];
-        }else{
+        } else {
             $str = '';
         }
 
@@ -50,7 +50,7 @@ class Route
 
     public static function getController()
     {
-        if(!isset(self::$route['controller'])){
+        if (!isset(self::$route['controller'])) {
             self::getRoute();
         }
         return self::$route['controller'];
@@ -58,7 +58,7 @@ class Route
 
     public static function getAction()
     {
-        if(!isset(self::$route['action'])){
+        if (!isset(self::$route['action'])) {
             self::getRoute();
         }
         return self::$route['action'];

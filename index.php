@@ -34,4 +34,4 @@ require_once CORE . 'Main.php';
 spl_autoload_register('\core\Main::loader');
 
 // 启动框架
-main::start();
+Main::start();
