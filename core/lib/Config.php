@@ -10,6 +10,7 @@
 
 namespace core\lib;
 
+use core\lib\driver\Redis;
 class Config
 {
     private static $config_data = [];
@@ -35,6 +36,7 @@ class Config
      */
     public static function init()
     {
+
         $config = include_once CONFIG_PATH . 'base.php';
         self::$config_data = $config;
         $database = include_once CONFIG_PATH . 'database.php';
@@ -43,6 +45,8 @@ class Config
         } else {
             self::$config_data = array_merge(self::$config_data, $database);
         }
+
+//        $redis->set("Config:data",serialize(self::$config_data));
     }
 
 

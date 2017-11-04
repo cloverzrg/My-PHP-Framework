@@ -11,6 +11,9 @@ namespace core;
 use \core\lib\Route;
 use \core\lib\Request;
 use \core\lib\Config;
+use \core\lib\driver\Redis;
+use \core\lib\Cache;
+
 class Main
 {
 
@@ -21,10 +24,13 @@ class Main
         $controller = Route::getController();
         $action = Route::getAction();
 
-        // 初始化请求类
+        // 初始化各个类
         Request::init();
         Config::init();
-        p(Config::get("REDIS.HOST"));
+
+        //初始化框架
+        self::init();
+
 
         // 引入控制器
         $class_file = APP.'controller'.DS.$controller.'Controller.php';
@@ -44,7 +50,12 @@ class Main
     //初始化
     private static function init()
     {
-
+        // 调试模式
+        if (Config::get('DEBUG')){
+            ini_set('display_error', 'On');
+        }else{
+            ini_set('display_error', 'Off');
+        }
     }
 
     //自动加载类
