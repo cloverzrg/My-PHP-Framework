@@ -7,3 +7,12 @@
  *
  * 日志类
  */
+
+
+class Log
+{
+    public static function add($message)
+    {
+
+    }
+}

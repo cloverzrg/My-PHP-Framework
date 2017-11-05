@@ -46,6 +46,6 @@ class Redis
 
     private function __clone()
     {
-        trigger_error("单例模式,不能被克隆");
+        //trigger_error("单例模式,不能被克隆");
     }
 }

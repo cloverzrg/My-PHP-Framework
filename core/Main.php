@@ -29,12 +29,7 @@ class Main
         Request::init();
         Config::init();
 
-        if (Config::get('CSRF')){
-            if ($_SERVER['REQUEST_METHOD']=="POST"){
-                CSRF::check();
-            }
-            CSRF::generateToken();
-        }
+
         //初始化框架
         self::init();
 
@@ -63,6 +58,14 @@ class Main
         } else {
             ini_set('display_error', 'Off');
         }
+
+        // CSRF 防护
+        if (Config::get('CSRF')){
+            if ($_SERVER['REQUEST_METHOD']=="POST"){
+                CSRF::check();
+            }
+            CSRF::generateToken();
+        }
     }
 
     //自动加载类
@@ -83,9 +86,4 @@ class Main
     }
 
 
-    // 显示页面
-    public static function display()
-    {
-
-    }
 }

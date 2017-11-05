@@ -20,4 +20,10 @@ class Controller
          */
         echo 'display';
     }
+
+    public function __call($name, $arguments)
+    {
+        // TODO: Implement __call() method.
+        throw  new \Exception(get_class($this).'中找不到此方法:'.$name);
+    }
 }
