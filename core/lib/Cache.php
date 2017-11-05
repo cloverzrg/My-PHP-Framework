@@ -53,7 +53,7 @@ class Cache
     /**
      * @param $key
      * @param $value 数组会json编码
-     * @param int $expire 过期时间(秒)
+     * @param int $expire 过期时间(秒) 0 为永久
      */
     public static function set($key, $value, $expire = 0)
     {
@@ -78,22 +78,31 @@ class Cache
     /**
      * 给相应的 $key增加 $d
      * @param $key
-     * @param $d 增加多少
-     * @return mixed 增 $d 后的值
+     * @param $step 步长
+     * @return mixed 完成操作后 $key 的值
      */
-    public static function inc($key, $d = 1)
+    public static function inc($key, $step = 1)
     {
         $key = self::getCacheKey($key);
         $redis = Redis::getInstance(self::$cache_db);
-        $i = $redis->get($key);
-        $i += $d;
-        $redis->set($key, $i);
-        return $i;
+        return $redis->incrby($key, $step);
     }
 
-
-    public static function dec($key, $d = 1)
+    /**
+     * @param $key  自减的key
+     * @param int $step 步长
+     * @return mixed 完成操作后 $key 的值
+     */
+    public static function dec($key, $step = 1)
     {
-        return self::inc($key, $d * -1);
+        $key = self::getCacheKey($key);
+        $redis = Redis::getInstance(self::$cache_db);
+        return $redis->decrby($key, $step);
+    }
+
+    public static function rm($key)
+    {
+        $key = self::getCacheKey($key);
+        return Redis::getInstance(self::$cache_db)->delete($key);
     }
 }

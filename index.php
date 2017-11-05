@@ -20,6 +20,7 @@ define('BASE_PATH', __DIR__ . DS);
 define("CORE", BASE_PATH . 'core' . DS);
 define('CONFIG_PATH', BASE_PATH . 'config' . DS);
 define("APP", BASE_PATH . 'app' . DS);
+define("Framework_NAME","jeongen.com");
 
 // 加载框架函数库
 require_once CORE . 'function.php';

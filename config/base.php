@@ -19,11 +19,15 @@ return [
     'DEBUG' => true,
 
     /**
-     * CSRF防护,打开后每个 post 请求都需要携带 _token 字段,可以通过 CSRF::generateToken()获取token
+     * CSRF防护,打开后每个 post 请求都需要携带 _token 字段,可以通过 CSRF::getToken()获取token
      * 打开后表单需要增加的字段 <input type="hidden" name="_token" value="{$token}" />
      * get方式不做检查,而且 get 请求不应该对数据库造成影响
      */
     'CSRF' => true,
+
+    /**
+     * redis配置,保存缓存
+     */
     'REDIS' => [
         'HOST' => '127.0.0.1',
         'PORT' => '6379',

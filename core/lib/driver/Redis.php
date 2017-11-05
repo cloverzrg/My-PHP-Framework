@@ -13,7 +13,7 @@ namespace core\lib\driver;
 use core\lib\Config;
 
 /*
- * redis连接,单例模式
+ * redis连接
  * 获取一个连接:
  * use \core\lib\driver\Redis;
  * Redis::getInstance();
@@ -46,6 +46,6 @@ class Redis
 
     private function __clone()
     {
-        //trigger_error("单例模式,不能被克隆");
+
     }
 }

@@ -20,7 +20,12 @@ class Route
         p($_SERVER);
     }
 
-    public static function getRoute()
+
+    /**
+     * 解析 url ,获取控制器和方法名
+     * @return array
+     */
+    public static function init()
     {
         /*
          * get请求 index.php?s=/index/notice/aid/12
@@ -48,18 +53,24 @@ class Route
         return self::$route;
     }
 
+    /**
+     * @return mixed 返回控制器名称
+     */
     public static function getController()
     {
         if (!isset(self::$route['controller'])) {
-            self::getRoute();
+            self::init();
         }
         return self::$route['controller'];
     }
 
+    /**
+     * @return mixed 返回控制器里面的方法名
+     */
     public static function getAction()
     {
         if (!isset(self::$route['action'])) {
-            self::getRoute();
+            self::init();
         }
         return self::$route['action'];
     }

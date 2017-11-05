@@ -64,7 +64,6 @@ class Main
             if ($_SERVER['REQUEST_METHOD']=="POST"){
                 CSRF::check();
             }
-            CSRF::generateToken();
         }
     }
 

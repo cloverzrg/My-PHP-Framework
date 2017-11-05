@@ -11,7 +11,25 @@
 
 class Log
 {
-    public static function add($message)
+    public static function add($message,$type = 'info')
+    {
+        switch ($type)
+        {
+
+        }
+    }
+
+    public static function error($message)
+    {
+
+    }
+
+    public static function info($message)
+    {
+
+    }
+
+    public static function warning($message)
     {
 
     }

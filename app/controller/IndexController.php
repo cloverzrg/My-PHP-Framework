@@ -15,6 +15,7 @@ use \core\lib\Cache;
 use \core\lib\Config;
 use \core\lib\driver\Redis;
 use \core\lib\CSRF;
+//use \core\lib\Response;
 
 /**
  * Class IndexController
@@ -26,6 +27,7 @@ class IndexController extends Controller
     public function index()
     {
 
+        //Response::send();
         // 获取表单参数
         $name = Request::get("name");
         $user = Request::post("user");
@@ -40,7 +42,8 @@ class IndexController extends Controller
 
         // 获取配置
         // 这里的 p() 函数是打印数组的自定义函数
-        p(Config::get("REDIS"));
+        $redis_config = Config::get("REDIS");
+        p($redis_config);
 
         // Redis 连接
         // db 选择 1
@@ -51,6 +54,6 @@ class IndexController extends Controller
 
 
         //CSRF token
-        echo 'CSRF-Token : ' . CSRF::generateToken() . '<br>';
+        echo 'CSRF-Token : ' . CSRF::getToken() . '<br>';
     }
 }
