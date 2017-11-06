@@ -61,6 +61,7 @@ class Main
 
         // CSRF 防护
         if (Config::get('CSRF')){
+            // 开启防护的话,会对所有post请求检查 Token
             if ($_SERVER['REQUEST_METHOD']=="POST"){
                 CSRF::check();
             }
@@ -70,16 +71,16 @@ class Main
     //自动加载类
     public static function loader($class)
     {
-        // windows 目录分隔符
+        // 目录分隔符
         $class = str_replace('\\', DS, $class);
 
-        $class_file = BASE_PATH . $class . '.php';
+        $classFile = BASE_PATH . $class . '.php';
 
-        if (is_file($class_file)) {
-            require_once $class_file;
+        if (is_file($classFile)) {
+            require_once $classFile;
             return true;
         } else {
-            return false;
+            throw  new \Exception("文件夹在失败,找不到类:" . $classFile);
         }
 
     }

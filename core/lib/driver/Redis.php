@@ -29,16 +29,31 @@ class Redis
 
     }
 
-    private static function getRedis()
+
+    /**
+     * 连接redis
+     */
+    private static function connect()
     {
+        $host = Config::get('REDIS.HOST');
+        $port = Config::get('REDIS.PORT');
+        $connect_type = Config::get('REDIS.persistent')? 'pconnect':'connect';
+        $password = Config::get('REDIS.PASSWORD');
         self::$handler = new \Redis();
-        self::$handler->connect(Config::get('REDIS.HOST'), Config::get('REDIS.PORT'));
+        self::$handler->$connect_type($host, $port);
+        if ($password != ''){
+            self::$handler->auth($password);
+        }
     }
 
+    /**
+     * @param int $db 连接的redis库
+     * @return \Redis 连接已连接对象
+     */
     public static function getInstance($db = 0)
     {
         if (self::$handler == null) {
-            self::getRedis();
+            self::connect();
         }
         self::$handler->select($db);
         return self::$handler;

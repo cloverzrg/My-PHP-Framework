@@ -14,9 +14,9 @@ use core\lib\Request;
 
 class CSRF
 {
-    public static $token_key = '_token';
-    private static $session_key = 'CSRF-TOKEN';
-    private static $token_len = 32;
+    public static $tokenKey = '_token';
+    private static $sessionKey = 'CSRF-TOKEN';
+    private static $tokenLen = 32;
     private static $token = '';
 
 
@@ -26,10 +26,10 @@ class CSRF
      */
     public static function check()
     {
-        $_token = Request::post(self::$token_key);
-        if (strlen($_token) == self::$token_len && $_token == $_SESSION[self::$session_key]) {
+        $_token = Request::post(self::$tokenKey);
+        if (strlen($_token) == self::$tokenLen && $_token == $_SESSION[self::$sessionKey]) {
             // CSRF-TOKEN 检查通过
-            $_SESSION[self::$session_key] = '';
+            $_SESSION[self::$sessionKey] = '';
             return true;
         } else {
             throw new \Exception("CSRF-TOKEN 验证不正确");
@@ -42,8 +42,8 @@ class CSRF
      */
     private static function generateToken()
     {
-        $token = bin2hex(openssl_random_pseudo_bytes(self::$token_len / 2));
-        $_SESSION[self::$session_key] = $token;
+        $token = bin2hex(openssl_random_pseudo_bytes(self::$tokenLen / 2));
+        $_SESSION[self::$sessionKey] = $token;
         self::$token = $token;
         return $token;
     }
@@ -53,7 +53,7 @@ class CSRF
      */
     public static function getToken()
     {
-        if (strlen(self::$token) == self::$token_len) {
+        if (strlen(self::$token) == self::$tokenLen) {
             return self::$token;
         }
         return self::generateToken();

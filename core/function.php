@@ -8,6 +8,10 @@
  * 框架函数库
  */
 
+/**
+ * 打印一个变量
+ * @param $var 打印变量
+ */
 function p($var)
 {
     if (is_bool($var) || is_null($var)) {

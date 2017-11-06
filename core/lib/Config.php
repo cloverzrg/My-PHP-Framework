@@ -14,7 +14,7 @@ use core\lib\driver\Redis;
 
 class Config
 {
-    private static $config_data = [];
+    private static $configData = [];
 
     /**
      * @param $name
@@ -27,7 +27,7 @@ class Config
     public static function get($name)
     {
         $name_arr = explode('.', $name);
-        $config = self::$config_data;
+        $config = self::$configData;
         foreach ($name_arr as $value) {
             $config = $config[$value];
         }
@@ -41,12 +41,12 @@ class Config
     {
 
         $config = include_once CONFIG_PATH . 'base.php';
-        self::$config_data = $config;
+        self::$configData = $config;
         $database = include_once CONFIG_PATH . 'database.php';
         if (isset($database['CONFIG_PREFIX']) && $database['CONFIG_PREFIX']) {
-            self::$config_data[$database['CONFIG_PREFIX']] = $database;
+            self::$configData[$database['CONFIG_PREFIX']] = $database;
         } else {
-            self::$config_data = array_merge(self::$config_data, $database);
+            self::$configData = array_merge(self::$configData, $database);
         }
 
     }

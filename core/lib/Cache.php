@@ -16,18 +16,18 @@ use core\lib\driver\Redis;
 
 class Cache
 {
-    private static $cache_key_prefix = 'Cache:';
-    private static $cache_db = 0;
+    private static $cacheKeyPrefix = 'Cache:';
+    private static $cacheDB = 0;
 
     /**
-     * @param $key
-     * @param bool $default
+     * @param $key string
+     * @param $default string|bool
      * @return bool|mixed  返回前尝试json解码,不能解码则返回字符串
      */
     public static function get($key, $default = false)
     {
         $key = self::getCacheKey($key);
-        $redis = Redis::getInstance(self::$cache_db);
+        $redis = Redis::getInstance(self::$cacheDB);
         $value = $redis->get($key);
 
         if (is_null($value)) {
@@ -41,24 +41,25 @@ class Cache
 
 
     /** 给key加前缀
-     * @param $key
+     * @param $key string
      * @return string
      */
     private static function getCacheKey($key)
     {
-        return self::$cache_key_prefix . $key;
+        return self::$cacheKeyPrefix . $key;
     }
 
 
     /**
-     * @param $key
-     * @param $value 数组会json编码
-     * @param int $expire 过期时间(秒) 0 为永久
+     * @param $key string
+     * @param $value string|array 数组会json编码
+     * @param $expire int 过期时间(秒) 0 为永久
+     * @return mixed result
      */
     public static function set($key, $value, $expire = 0)
     {
         $key = self::getCacheKey($key);
-        $redis = Redis::getInstance(self::$cache_db);
+        $redis = Redis::getInstance(self::$cacheDB);
 
         if (is_array($value) || is_object($value)) {
             $value = json_encode($value);
@@ -77,32 +78,32 @@ class Cache
 
     /**
      * 给相应的 $key增加 $d
-     * @param $key
-     * @param $step 步长
+     * @param $key string
+     * @param $step int 步长
      * @return mixed 完成操作后 $key 的值
      */
     public static function inc($key, $step = 1)
     {
         $key = self::getCacheKey($key);
-        $redis = Redis::getInstance(self::$cache_db);
+        $redis = Redis::getInstance(self::$cacheDB);
         return $redis->incrby($key, $step);
     }
 
     /**
-     * @param $key  自减的key
-     * @param int $step 步长
+     * @param $key  string 自减的key
+     * @param $step int 步长
      * @return mixed 完成操作后 $key 的值
      */
     public static function dec($key, $step = 1)
     {
         $key = self::getCacheKey($key);
-        $redis = Redis::getInstance(self::$cache_db);
+        $redis = Redis::getInstance(self::$cacheDB);
         return $redis->decrby($key, $step);
     }
 
     public static function rm($key)
     {
         $key = self::getCacheKey($key);
-        return Redis::getInstance(self::$cache_db)->delete($key);
+        return Redis::getInstance(self::$cacheDB)->delete($key);
     }
 }
