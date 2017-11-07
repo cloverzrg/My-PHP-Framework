@@ -10,7 +10,6 @@
 
 namespace core\lib;
 
-use core\lib\driver\Redis;
 
 class Config
 {
@@ -23,9 +22,11 @@ class Config
      * 当获取的是具体值,则返回值
      * REDIS.HOST返回值,
      * REDIS返回数组
+     * 不传入参数则返回所有配置
      */
-    public static function get($name)
+    public static function get($name = null)
     {
+        if ($name == null) return self::$configData;
         $name_arr = explode('.', $name);
         $config = self::$configData;
         foreach ($name_arr as $value) {
@@ -35,18 +36,19 @@ class Config
     }
 
     /*
-     * 将所有配置文件加载进来
+     * 遍历配置文件夹,将所有配置文件加载进来
      */
     public static function init()
     {
-
-        $config = include_once CONFIG_PATH . 'base.php';
-        self::$configData = $config;
-        $database = include_once CONFIG_PATH . 'database.php';
-        if (isset($database['CONFIG_PREFIX']) && $database['CONFIG_PREFIX']) {
-            self::$configData[$database['CONFIG_PREFIX']] = $database;
-        } else {
-            self::$configData = array_merge(self::$configData, $database);
+        $pattern = CONFIG_PATH.'*.php';
+        $configFiles = glob($pattern);
+        foreach($configFiles as $file){
+            $config = include_once $file;
+            if (isset($config['CONFIG_PREFIX']) && $config['CONFIG_PREFIX']) {
+                self::$configData[$config['CONFIG_PREFIX']] = $config;
+            } else {
+                self::$configData = array_merge(self::$configData, $config);
+            }
         }
 
     }

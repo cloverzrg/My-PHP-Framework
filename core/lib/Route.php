@@ -14,13 +14,6 @@ class Route
 {
     private static $route = array();
 
-    public function __construct()
-    {
-        echo '???';
-        p($_SERVER);
-    }
-
-
     /**
      * 解析 url ,获取控制器和方法名
      * @return array

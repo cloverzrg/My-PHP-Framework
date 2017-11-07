@@ -12,12 +12,20 @@
 
 namespace core\lib;
 
-use core\lib\driver\Redis;
+use core\lib\connection\Redis;
 
 class Cache
 {
     private static $cacheKeyPrefix = 'Cache:';
     private static $cacheDB = 0;
+    protected static $handler = null;
+
+    public static function init()
+    {
+        self::$handler = Redis::getInstance(self::$cacheDB);
+        self::$cacheDB = Config::get('CACHE.SELECT');
+        self::$cacheKeyPrefix = Config::get('CACHE.CACHE_PREFIX');
+    }
 
     /**
      * @param $key string
@@ -27,8 +35,7 @@ class Cache
     public static function get($key, $default = false)
     {
         $key = self::getCacheKey($key);
-        $redis = Redis::getInstance(self::$cacheDB);
-        $value = $redis->get($key);
+        $value = self::$handler->get($key);
 
         if (is_null($value)) {
             return $default;
@@ -59,16 +66,15 @@ class Cache
     public static function set($key, $value, $expire = 0)
     {
         $key = self::getCacheKey($key);
-        $redis = Redis::getInstance(self::$cacheDB);
 
         if (is_array($value) || is_object($value)) {
             $value = json_encode($value);
         }
 
         if (is_int($expire) && $expire) {
-            $result = $redis->setex($key, $expire, $value);
+            $result = self::$handler->setex($key, $expire, $value);
         } else {
-            $result = $redis->set($key, $value);
+            $result = self::$handler->set($key, $value);
         }
 
         return $result;
@@ -85,8 +91,7 @@ class Cache
     public static function inc($key, $step = 1)
     {
         $key = self::getCacheKey($key);
-        $redis = Redis::getInstance(self::$cacheDB);
-        return $redis->incrby($key, $step);
+        return self::$handler->incrby($key, $step);
     }
 
     /**
@@ -97,13 +102,12 @@ class Cache
     public static function dec($key, $step = 1)
     {
         $key = self::getCacheKey($key);
-        $redis = Redis::getInstance(self::$cacheDB);
-        return $redis->decrby($key, $step);
+        return self::$handler->decrby($key, $step);
     }
 
     public static function rm($key)
     {
         $key = self::getCacheKey($key);
-        return Redis::getInstance(self::$cacheDB)->delete($key);
+        return self::$handler->delete($key);
     }
 }

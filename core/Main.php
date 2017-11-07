@@ -11,6 +11,7 @@ namespace core;
 use \core\lib\Route;
 use \core\lib\Request;
 use \core\lib\Config;
+use \core\lib\Cache;
 use \core\lib\CSRF;
 
 class Main
@@ -28,6 +29,7 @@ class Main
         // 初始化各个类
         Request::init();
         Config::init();
+        Cache::init();
 
 
         //初始化框架
@@ -36,7 +38,7 @@ class Main
 
         // 引入控制器
         $class_file = APP . 'controller' . DS . $controller . 'Controller.php';
-        $class_name = '\\app\\' . 'controller\\' . $controller . 'Controller';
+        $class_name = '\\app\\controller\\' . $controller . 'Controller';
 
         if (is_file($class_file)) {
             require_once $class_file;
@@ -80,7 +82,7 @@ class Main
             require_once $classFile;
             return true;
         } else {
-            throw  new \Exception("文件夹在失败,找不到类:" . $classFile);
+            throw  new \Exception("文件加载失败,找不到类:" . $classFile);
         }
 
     }

@@ -33,7 +33,7 @@ return [
         'PORT' => '6379',
         'PASSWORD' => '',
         // 是否使用 pconnect
-        'persistent' => true,
+        'PERSISTENT' => true,
     ],
 
 ];

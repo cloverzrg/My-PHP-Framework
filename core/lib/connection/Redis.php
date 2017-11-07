@@ -8,7 +8,7 @@
  * Redis 驱动
  */
 
-namespace core\lib\driver;
+namespace core\lib\connection;
 
 use core\lib\Config;
 
@@ -22,7 +22,7 @@ use core\lib\Config;
 class Redis
 {
 
-    protected static $handler = null;
+    protected static $handler = [];
 
     private function __construct()
     {
@@ -33,17 +33,18 @@ class Redis
     /**
      * 连接redis
      */
-    private static function connect()
+    private static function connect($db)
     {
         $host = Config::get('REDIS.HOST');
         $port = Config::get('REDIS.PORT');
-        $connect_type = Config::get('REDIS.persistent')? 'pconnect':'connect';
+        $connect_type = Config::get('REDIS.PERSISTENT')? 'pconnect':'connect';
         $password = Config::get('REDIS.PASSWORD');
-        self::$handler = new \Redis();
-        self::$handler->$connect_type($host, $port);
+        self::$handler[$db] = new \Redis();
+        self::$handler[$db]->$connect_type($host, $port);
         if ($password != ''){
-            self::$handler->auth($password);
+            self::$handler[$db]->auth($password);
         }
+        self::$handler[$db]->select($db);
     }
 
     /**
@@ -52,11 +53,10 @@ class Redis
      */
     public static function getInstance($db = 0)
     {
-        if (self::$handler == null) {
-            self::connect();
+        if (!isset(self::$handler[$db])) {
+            self::connect($db);
         }
-        self::$handler->select($db);
-        return self::$handler;
+        return self::$handler[$db];
     }
 
     private function __clone()
