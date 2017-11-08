@@ -8,7 +8,7 @@
 
 return [
     'CONFIG_PREFIX' => 'CACHE',
-    'CACHE' => 'Redis',
+    'DRIVER' => 'Redis',
     'CACHE_PREFIX' => 'CACHE:',
     'REDIS' => array(
         'HOST' => '127.0.0.1',
@@ -16,5 +16,9 @@ return [
         'PASSWORD' => '',
         'PERSISTENT' => '',
         'SELECT' => 1,
+    ),
+    'MEMCACHE' =>array(
+        'HOST' => '127.0.0.1',
+        'PORT' => 11211,
     ),
 ];
