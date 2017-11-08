@@ -8,6 +8,13 @@
 
 return [
     'CONFIG_PREFIX' => 'CACHE',
-    'SELECT'=>1,
+    'CACHE' => 'Redis',
     'CACHE_PREFIX' => 'CACHE:',
+    'REDIS' => array(
+        'HOST' => '127.0.0.1',
+        'PORT' => 6379,
+        'PASSWORD' => '',
+        'PERSISTENT' => '',
+        'SELECT' => 1,
+    ),
 ];
