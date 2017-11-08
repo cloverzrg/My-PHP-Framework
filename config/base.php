@@ -26,7 +26,7 @@ return [
     'CSRF' => true,
 
     /**
-     * redis配置,保存缓存
+     * redis配置
      */
     'REDIS' => [
         'HOST' => '127.0.0.1',

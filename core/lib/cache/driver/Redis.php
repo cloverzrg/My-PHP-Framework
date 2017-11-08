@@ -10,7 +10,7 @@
 namespace core\lib\cache\driver;
 
 use core\lib\Config;
-use core\lib\cache\driver\CacheDriverInterface;
+use core\lib\cache\CacheDriverInterface;
 
 class Redis implements CacheDriverInterface
 {
@@ -119,7 +119,8 @@ class Redis implements CacheDriverInterface
      */
     public function clear()
     {
-        // TODO: Implement clear() method.
+        $key = Config::get('CACHE_PREFIX').'*';
+        $this->handler->delete($this->handler->keys($key));
     }
 
     /**

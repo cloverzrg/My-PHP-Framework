@@ -14,7 +14,7 @@ class Response
 
     public function init()
     {
-        self::$header['x-powered-by'] = Framework_NAME;
+        self::$header['x-powered-by'] = FRAMEWORK_NAME;
     }
 
     /**

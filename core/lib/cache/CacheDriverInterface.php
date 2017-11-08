@@ -9,7 +9,7 @@
  */
 
 
-namespace core\lib\cache\driver;
+namespace core\lib\cache;
 
 interface CacheDriverInterface
 {

@@ -16,8 +16,9 @@ use core\lib\connection\Redis;
 
 class Cache
 {
-    private static $cacheKeyPrefix = 'Cache:';
-    private static $cacheDB = 0;
+    private static $cacheKeyPrefix = '';
+
+    // 操作句柄
     protected static $handler = null;
 
     /**
@@ -25,9 +26,10 @@ class Cache
      */
     public static function init()
     {
-        self::$cacheDB = Config::get('CACHE.REDIS.SELECT');
-        self::$handler = Redis::getInstance(self::$cacheDB);
         self::$cacheKeyPrefix = Config::get('CACHE.CACHE_PREFIX');
+        $driver = Config::get('CACHE.DRIVER');
+        $class = 'core\\lib\\cache\\driver\\'.$driver;
+        return self::$handler = new $class;
     }
 
     /**
@@ -38,15 +40,7 @@ class Cache
     public static function get($key, $default = false)
     {
         $key = self::getCacheKey($key);
-        $value = self::$handler->get($key);
-
-        if (is_null($value)) {
-            return $default;
-        }
-
-        $json_data = json_decode($value);
-
-        return $json_data === null ? $value : $json_data;
+        return self::$handler->get($key, $default = false);
     }
 
 
@@ -69,20 +63,7 @@ class Cache
     public static function set($key, $value, $expire = 0)
     {
         $key = self::getCacheKey($key);
-
-        if (is_array($value) || is_object($value)) {
-            $value = json_encode($value);
-        }
-
-        if (is_int($expire) && $expire) {
-            $result = self::$handler->setex($key, $expire, $value);
-        } else {
-            $result = self::$handler->set($key, $value);
-        }
-
-        return $result;
-
-
+        return self::$handler->set($key, $value,$expire);
     }
 
     /**
@@ -94,7 +75,7 @@ class Cache
     public static function inc($key, $step = 1)
     {
         $key = self::getCacheKey($key);
-        return self::$handler->incrby($key, $step);
+        return self::$handler->inc($key, $step);
     }
 
     /**
@@ -105,7 +86,7 @@ class Cache
     public static function dec($key, $step = 1)
     {
         $key = self::getCacheKey($key);
-        return self::$handler->decrby($key, $step);
+        return self::$handler->dec($key, $step);
     }
 
     /**
@@ -116,6 +97,6 @@ class Cache
     public static function rm($key)
     {
         $key = self::getCacheKey($key);
-        return self::$handler->delete($key);
+        return self::$handler->rm($key);
     }
 }
