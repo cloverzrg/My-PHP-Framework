@@ -19,7 +19,7 @@ use \core\lib\CSRF;
 
 /**
  * Class IndexController
- * @package app\controller  可以不继承此类
+ * @package app\controller  可以不继承父类
  */
 class IndexController extends Controller
 {
@@ -44,6 +44,8 @@ class IndexController extends Controller
         // 这里的 p() 函数是打印数组的自定义函数
         $redis_config = Config::get("REDIS");
         p($redis_config);
+        //获取的配置不存在则返回默认值
+        echo Config::get("test.test",'defaultValue').'<br>';
 
         // Redis 连接
         // db 选择 1

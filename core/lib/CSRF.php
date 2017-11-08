@@ -14,7 +14,7 @@ use core\lib\Request;
 
 class CSRF
 {
-    public static $tokenKey = '_token';
+    public static $tokenHtmlField = '_token';
     private static $sessionKey = 'CSRF-TOKEN';
     private static $tokenLen = 32;
     private static $token = '';
@@ -26,13 +26,13 @@ class CSRF
      */
     public static function check()
     {
-        $_token = Request::post(self::$tokenKey);
+        $_token = Request::post(self::$tokenHtmlField);
         if (strlen($_token) == self::$tokenLen && $_token == $_SESSION[self::$sessionKey]) {
             // CSRF-TOKEN 检查通过
             $_SESSION[self::$sessionKey] = '';
             return true;
         } else {
-            throw new \Exception("CSRF-TOKEN 验证不正确");
+            throw new \Exception("CSRF-TOKEN 验证不通过");
         }
     }
 

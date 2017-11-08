@@ -21,8 +21,8 @@ class Config
      * @return string|array
      * 当获取的值是数组时,返回数组
      * 当获取的是具体值,则返回值
-     * REDIS.HOST返回值,
-     * REDIS返回数组
+     * get('REDIS.HOST')返回值,
+     * get('REDIS')返回数组
      * 不传入参数则返回所有配置
      */
     public static function get($name = null, $default = false)
