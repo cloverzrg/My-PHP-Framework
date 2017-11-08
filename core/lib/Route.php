@@ -47,7 +47,7 @@ class Route
     }
 
     /**
-     * @return mixed 返回控制器名称
+     * @return string 返回控制器名称
      */
     public static function getController()
     {
@@ -58,7 +58,7 @@ class Route
     }
 
     /**
-     * @return mixed 返回控制器里面的方法名
+     * @return string 返回控制器里面的方法名
      */
     public static function getAction()
     {

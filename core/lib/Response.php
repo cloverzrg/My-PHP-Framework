@@ -18,8 +18,8 @@ class Response
     }
 
     /**
-     * @param $key  header的键名
-     * @param $value  header值,如果键名存在,则值会在最后面添加 ';'.$value;
+     * @param string $key  header的键名
+     * @param string $value  header值,如果键名存在,则值会在最后面添加 ';'.$value;
      * @return mixed header值
      */
     public static function header($key,$value)

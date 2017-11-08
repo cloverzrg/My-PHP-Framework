@@ -20,16 +20,19 @@ class Cache
     private static $cacheDB = 0;
     protected static $handler = null;
 
+    /**
+     * 初始化
+     */
     public static function init()
     {
+        self::$cacheDB = Config::get('CACHE.REDIS.SELECT');
         self::$handler = Redis::getInstance(self::$cacheDB);
-        self::$cacheDB = Config::get('CACHE.SELECT');
         self::$cacheKeyPrefix = Config::get('CACHE.CACHE_PREFIX');
     }
 
     /**
-     * @param $key string
-     * @param $default string|bool
+     * @param string $key
+     * @param string|bool $default
      * @return bool|mixed  返回前尝试json解码,不能解码则返回字符串
      */
     public static function get($key, $default = false)
@@ -48,7 +51,7 @@ class Cache
 
 
     /** 给key加前缀
-     * @param $key string
+     * @param string $key
      * @return string
      */
     private static function getCacheKey($key)
@@ -58,9 +61,9 @@ class Cache
 
 
     /**
-     * @param $key string
-     * @param $value string|array 数组会json编码
-     * @param $expire int 过期时间(秒) 0 为永久
+     * @param string $key
+     * @param string|array $value  数组会json编码
+     * @param int $expire 过期时间(秒) 0 为永久
      * @return mixed result
      */
     public static function set($key, $value, $expire = 0)
@@ -84,8 +87,8 @@ class Cache
 
     /**
      * 给相应的 $key增加 $d
-     * @param $key string
-     * @param $step int 步长
+     * @param string $key
+     * @param int $step 步长
      * @return mixed 完成操作后 $key 的值
      */
     public static function inc($key, $step = 1)
@@ -95,8 +98,8 @@ class Cache
     }
 
     /**
-     * @param $key  string 自减的key
-     * @param $step int 步长
+     * @param string $key   自减的key
+     * @param int $step  步长
      * @return mixed 完成操作后 $key 的值
      */
     public static function dec($key, $step = 1)
@@ -105,6 +108,11 @@ class Cache
         return self::$handler->decrby($key, $step);
     }
 
+    /**
+     * 删除指定缓存
+     * @param string $key
+     * @return mixed
+     */
     public static function rm($key)
     {
         $key = self::getCacheKey($key);

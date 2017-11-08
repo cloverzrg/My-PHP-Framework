@@ -18,7 +18,7 @@ class Request
     private static $postData = array();
 
     /**
-     * @param $key string 要获取的 get 参数
+     * @param string $key  要获取的 get 参数
      * @param null $default 不存在时候的默认值
      * @return mixed|null
      */
@@ -33,7 +33,7 @@ class Request
 
 
     /**
-     * @param $key string 要获取的 post 参数
+     * @param string $key 要获取的 post 参数
      * @param null $default 不存在时的默认值
      * @return mixed|null
      */

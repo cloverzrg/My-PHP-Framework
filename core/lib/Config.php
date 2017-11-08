@@ -16,21 +16,27 @@ class Config
     private static $configData = [];
 
     /**
-     * @param $name
-     * @return array|mixed
+     * @param string $name
+     * @param mixed $default
+     * @return string|array
      * 当获取的值是数组时,返回数组
      * 当获取的是具体值,则返回值
      * REDIS.HOST返回值,
      * REDIS返回数组
      * 不传入参数则返回所有配置
      */
-    public static function get($name = null)
+    public static function get($name = null, $default = false)
     {
         if ($name == null) return self::$configData;
         $name_arr = explode('.', $name);
         $config = self::$configData;
         foreach ($name_arr as $value) {
-            $config = $config[$value];
+            if (isset($config[$value])) {
+                $config = $config[$value];
+            } else {
+                return $default;
+            }
+
         }
         return $config;
     }
@@ -40,9 +46,9 @@ class Config
      */
     public static function init()
     {
-        $pattern = CONFIG_PATH.'*.php';
+        $pattern = CONFIG_PATH . '*.php';
         $configFiles = glob($pattern);
-        foreach($configFiles as $file){
+        foreach ($configFiles as $file) {
             $config = include_once $file;
             if (isset($config['CONFIG_PREFIX']) && $config['CONFIG_PREFIX']) {
                 self::$configData[$config['CONFIG_PREFIX']] = $config;

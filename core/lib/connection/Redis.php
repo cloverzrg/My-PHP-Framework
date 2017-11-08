@@ -49,7 +49,7 @@ class Redis
 
     /**
      * @param int $db 连接的redis库
-     * @return \Redis 连接已连接对象
+     * @return object 连接已连接对象
      */
     public static function getInstance($db = 0)
     {

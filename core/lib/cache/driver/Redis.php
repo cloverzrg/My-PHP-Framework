@@ -24,12 +24,12 @@ class Redis implements CacheDriverInterface
     {
         $host = Config::get('CACHE.REDIS.HOST');
         $port = Config::get('CACHE.REDIS.PORT');
-        $connect_type = Config::get('CACHE.REDIS.PERSISTENT')? 'pconnect':'connect';
+        $connect_type = Config::get('CACHE.REDIS.PERSISTENT') ? 'pconnect' : 'connect';
         $password = Config::get('CACHE.REDIS.PASSWORD');
         $db = Config::get('CACHE.REDIS.SELECT');
         $this->handler = new \Redis();
         $this->handler->$connect_type($host, $port);
-        if ($password != ''){
+        if ($password != '') {
             $this->handler->auth($password);
         }
         $this->handler->select($db);
@@ -86,7 +86,7 @@ class Redis implements CacheDriverInterface
     {
         if ($this->handler->get($key)) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }

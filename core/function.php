@@ -10,7 +10,7 @@
 
 /**
  * 打印一个变量
- * @param $var 打印变量
+ * @param mixed $var 打印变量
  */
 function p($var)
 {
