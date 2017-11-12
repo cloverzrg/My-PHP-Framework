@@ -24,6 +24,7 @@ class Config
      * get('REDIS.HOST')返回值,
      * get('REDIS')返回数组
      * 不传入参数则返回所有配置
+     * 当获取的配置不存在时,默认返回 false
      */
     public static function get($name = null, $default = false)
     {

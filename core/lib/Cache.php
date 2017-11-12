@@ -18,7 +18,9 @@ class Cache
 {
     private static $cacheKeyPrefix = '';
 
-    // 操作句柄
+    //操作句柄,如果要自定义一个缓存驱动,
+    //请在core\lib\cache\driver文件夹中添加驱动并继承core\lib\cache\CacheDriverInterface接口
+    //然后在config\cache.php文件中把driver字段改为驱动文件名
     protected static $handler = null;
 
     /**

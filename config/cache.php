@@ -17,7 +17,7 @@ return [
         'PERSISTENT' => '',
         'SELECT' => 1,
     ),
-    'MEMCACHE' =>array(
+    'MEMCACHED' =>array(
         'HOST' => '127.0.0.1',
         'PORT' => 11211,
     ),
