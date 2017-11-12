@@ -16,8 +16,8 @@ class CSRF
 {
     public static $tokenHtmlField = '_token';
     private static $sessionKey = 'CSRF-TOKEN';
-    private static $tokenLen = 32;
-    private static $token = '';
+    private static $tokenLen = 8;
+    private static $token = null;
 
 
     /**
@@ -53,7 +53,7 @@ class CSRF
      */
     public static function getToken()
     {
-        if (strlen(self::$token) == self::$tokenLen) {
+        if (!is_null(self::$token)) {
             return self::$token;
         }
         return self::generateToken();
