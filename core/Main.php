@@ -56,6 +56,9 @@ class Main
     {
         // 调试模式
         if (Config::get('DEBUG')) {
+            $whoops = new \Whoops\Run;
+            $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
+            $whoops->register();
             ini_set('display_error', 'On');
         } else {
             ini_set('display_error', 'Off');

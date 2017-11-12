@@ -25,6 +25,9 @@ require_once APP . 'function.php';
 // 框架
 require_once CORE . 'Main.php';
 
+//composer
+require_once BASE_PATH.'vendor'.DS.'autoload.php';
+
 // 注册自动加载类
 spl_autoload_register('\core\Main::loader');
 

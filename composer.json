@@ -1,0 +1,14 @@
+{
+  "name": "PHP-Framework",
+  "description": " A PHP Framework",
+  "type": "Framework",
+  "keywords": [
+    "PHP",
+    "Framework"
+  ],
+  "require": {
+    "php": ">=7.0",
+    "filp/whoops": "*",
+    "symfony/var-dumper":"*"
+  }
+}
