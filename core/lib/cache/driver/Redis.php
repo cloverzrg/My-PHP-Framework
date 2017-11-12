@@ -11,6 +11,7 @@ namespace core\lib\cache\driver;
 
 use core\lib\Config;
 use core\lib\cache\CacheDriverInterface;
+use core\lib\connection\Redis as RedisConnect;
 
 class Redis implements CacheDriverInterface
 {
@@ -22,17 +23,13 @@ class Redis implements CacheDriverInterface
      */
     public function __construct()
     {
-        $host = Config::get('CACHE.REDIS.HOST');
-        $port = Config::get('CACHE.REDIS.PORT');
-        $connect_type = Config::get('CACHE.REDIS.PERSISTENT') ? 'pconnect' : 'connect';
-        $password = Config::get('CACHE.REDIS.PASSWORD');
-        $db = Config::get('CACHE.REDIS.SELECT');
-        $this->handler = new \Redis();
-        $this->handler->$connect_type($host, $port);
-        if ($password != '') {
-            $this->handler->auth($password);
+        //获取缓存redis配置
+        $redisOption = Config::get('CACHE.REDIS');
+        if($redisOption == false){
+            //当没有配置缓存redis时,使用默认的redis配置
+            $redisOption = Config::get('REDIS');
         }
-        $this->handler->select($db);
+        $this->handler = RedisConnect::getInstance($redisOption);
     }
 
 
@@ -119,7 +116,7 @@ class Redis implements CacheDriverInterface
      */
     public function clear()
     {
-        $key = Config::get('CACHE_PREFIX').'*';
+        $key = Config::get('CACHE_PREFIX') . '*';
         $this->handler->delete($this->handler->keys($key));
     }
 

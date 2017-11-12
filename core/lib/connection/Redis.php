@@ -31,32 +31,53 @@ class Redis
 
 
     /**
-     * 连接redis
+     *
+     * @param array $option  连接的redis的host,port等信息
+     * @param string $config_str 连接特征码
      */
-    private static function connect($db)
+    private static function connect($option, $config_str)
     {
-        $host = Config::get('REDIS.HOST');
-        $port = Config::get('REDIS.PORT');
-        $connect_type = Config::get('REDIS.PERSISTENT')? 'pconnect':'connect';
-        $password = Config::get('REDIS.PASSWORD');
-        self::$handler[$db] = new \Redis();
-        self::$handler[$db]->$connect_type($host, $port);
-        if ($password != ''){
-            self::$handler[$db]->auth($password);
+        $host = $option['HOST'];
+        $port = $option['PORT'];
+        $connect_type = $option['PERSISTENT'] ? 'pconnect' : 'connect';
+        $password = $option['PASSWORD'];
+        $select = $option['SELECT'];
+        self::$handler[$config_str] = new \Redis();
+        self::$handler[$config_str]->$connect_type($host, $port);
+        if ($password != '') {
+            self::$handler[$config_str]->auth($password);
         }
-        self::$handler[$db]->select($db);
+        self::$handler[$config_str]->select($select);
     }
 
     /**
-     * @param int $db 连接的redis库
+     * @param array|int $option 连接的redis的host,port等信息
      * @return object 连接已连接对象
      */
-    public static function getInstance($db = 0)
+    public static function getInstance($option = null)
     {
-        if (!isset(self::$handler[$db])) {
-            self::connect($db);
+        //如果是一个数字,则为默认redis配置和选择的库
+        if(is_numeric($option)){
+            $select = $option;
+            $option = Config::get('REDIS');
+            $option['SELECT'] = $select;
+        }else{
+            //如果没有传入则使用默认配置
+            if (is_null($option)) {
+                $option = Config::get('REDIS');
+            }
         }
-        return self::$handler[$db];
+
+        $host = $option['HOST'];
+        $port = $option['PORT'];
+//        $connect_type = $option['PERSISTENT'];
+        $password = $option['PASSWORD'];
+        $select = $option['SELECT'];
+        $config_str = $host . ':' . $port . ':' . $password . ':' . $select;
+        if (!isset(self::$handler[$config_str])) {
+            self::connect($option, $config_str);
+        }
+        return self::$handler[$config_str];
     }
 
     private function __clone()
