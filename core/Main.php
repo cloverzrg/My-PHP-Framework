@@ -45,7 +45,7 @@ class Main
             $contr = new $class_name;
             $contr->$action();
         } else {
-            throw new \Exception("找不到控制器");
+            throw new \Exception("找不到控制器:".$controller);
         }
 
     }
