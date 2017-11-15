@@ -26,10 +26,9 @@ class CSRF
      */
     public static function check()
     {
-        $_token = Request::post(self::$tokenHtmlField);
-        if (strlen($_token) == self::$tokenLen && $_token == $_SESSION[self::$sessionKey]) {
+        $token = Request::post(self::$tokenHtmlField);
+        if (isset($_SESSION[self::$sessionKey]) && $token == $_SESSION[self::$sessionKey]) {
             // CSRF-TOKEN 检查通过
-            $_SESSION[self::$sessionKey] = '';
             return true;
         } else {
             throw new \Exception("CSRF-TOKEN 验证不通过");
@@ -53,9 +52,15 @@ class CSRF
      */
     public static function getToken()
     {
-        if (!is_null(self::$token)) {
-            return self::$token;
+        if (is_null(self::$token)) {
+            // 当session中有token时,直接使用session中的token
+            if (isset($_SESSION[self::$sessionKey])) {
+                self::$token = $_SESSION[self::$sessionKey];
+            } else {
+                self::generateToken();
+            }
+
         }
-        return self::generateToken();
+        return self::$token;
     }
 }
