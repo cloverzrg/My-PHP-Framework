@@ -11,7 +11,7 @@
 namespace core\lib;
 
 use core\lib\Request;
-
+use Exception;
 class CSRF
 {
     public static $tokenHtmlField = '_token';
@@ -31,7 +31,7 @@ class CSRF
             // CSRF-TOKEN 检查通过
             return true;
         } else {
-            throw new \Exception("CSRF-TOKEN 验证不通过");
+            throw new Exception("CSRF-TOKEN 验证不通过");
         }
     }
 
@@ -48,7 +48,7 @@ class CSRF
     }
 
     /**
-     * @return string 获取token,一个请求只生成一次
+     * @return string 获取token,一个token在一个会话中有效
      */
     public static function getToken()
     {
