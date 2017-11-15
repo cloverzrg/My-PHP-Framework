@@ -8,11 +8,12 @@
 
 namespace core;
 
-use \core\lib\Route;
-use \core\lib\Request;
-use \core\lib\Config;
-use \core\lib\Cache;
-use \core\lib\CSRF;
+use core\lib\Route;
+use core\lib\Request;
+use core\lib\Config;
+use core\lib\Cache;
+use core\lib\CSRF;
+use core\lib\Session;
 
 class Main
 {
@@ -20,7 +21,7 @@ class Main
     // 框架流程控制
     public static function start()
     {
-        session_start();
+
 
         // 路由
         $controller = Route::getController();
@@ -30,7 +31,7 @@ class Main
         Request::init();
         Config::init();
         Cache::init();
-
+        Session::init();
 
         //初始化框架
         self::init();

@@ -8,13 +8,13 @@
 
 namespace app\controller;
 
-use \core\lib\Request;
-use \core\lib\Controller;
-use \core\lib\Model;
-use \core\lib\Cache;
-use \core\lib\Config;
-use \core\lib\connection\Redis;
-use \core\lib\CSRF;
+use core\lib\Request;
+use core\lib\Controller;
+use core\lib\Model;
+use core\lib\Cache;
+use core\lib\Config;
+use core\lib\connection\Redis;
+use core\lib\CSRF;
 //use \core\lib\Response;
 
 /**

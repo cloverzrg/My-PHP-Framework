@@ -32,6 +32,7 @@ return [
         'HOST' => '127.0.0.1',
         'PORT' => '6379',
         'PASSWORD' => '',
+        'SELECT' => 0,
         // 是否使用 pconnect
         'PERSISTENT' => true,
     ],
