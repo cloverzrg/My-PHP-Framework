@@ -1,5 +1,5 @@
 # My-PHP-Framework  
-一个轻量的 MVC 框架
+一个轻量的 PHP MVC 框架，先参考ThinkPHP5框架把各个类(某些类自己实现)简单实现，再逐步完善  
 
 ### 写这个框架的目的  
 1. 加强自己的 PHP 技能
@@ -7,8 +7,10 @@
 3. 希望以后做自己的小项目可以使用这个框架
 
 ### 参考  
-1. 从零开始打造自己的PHP框架 [慕课网]  
-2. thinkphp 5.0 源码  
+1. ThinkPHP 5 源码 
+2. [thinkphp 5.0 源码阅读学习](https://www.kancloud.cn/zmwtp/tp5/119422)
+2. 从零开始打造自己的PHP框架 [慕课网]  
+ 
 
 ### 完成的功能
 1. Config 配置类
@@ -23,5 +25,5 @@
 1. php7
 2. nginx
 3. composer
-4. redis
+4. redis(phpredis)
 5. mysql
