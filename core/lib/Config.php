@@ -51,8 +51,8 @@ class Config
         $configFiles = glob($pattern);
         foreach ($configFiles as $file) {
             $config = include_once $file;
-            if (isset($config['CONFIG_PREFIX']) && $config['CONFIG_PREFIX']) {
-                self::$configData[$config['CONFIG_PREFIX']] = $config;
+            if (isset($config['config_prefix']) && $config['config_prefix']) {
+                self::$configData[$config['config_prefix']] = $config;
             } else {
                 self::$configData = array_merge(self::$configData, $config);
             }

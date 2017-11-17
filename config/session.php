@@ -8,6 +8,17 @@
 
 
 return [
-    'CONFIG_PREFIX' => 'session',
+    'config_prefix' => 'session',
     'type' => 'Redis',
+
+    'Redis' => [
+        'host' => '127.0.0.1',
+        'port' => 6379,
+        'password' => '',
+        'select' => 0,
+        'expire' => 3600,
+        'timeout' => 0,
+        'persistent' => true,
+        'session_prefix' => 'session:',
+    ]
 ];

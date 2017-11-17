@@ -15,6 +15,7 @@ use core\lib\Cache;
 use core\lib\Config;
 use core\lib\connection\Redis;
 use core\lib\CSRF;
+
 //use \core\lib\Response;
 
 /**
@@ -42,10 +43,10 @@ class IndexController extends Controller
 
         // 获取配置
         // 这里的 p() 函数是打印数组的自定义函数
-        $redis_config = Config::get("REDIS");
+        $redis_config = Config::get("redis");
         p($redis_config);
         //获取的配置不存在则返回默认值
-        echo Config::get("test.test",'defaultValue').'<br>';
+        echo Config::get("test.test", 'defaultValue') . '<br>';
 
         // Redis 连接
         // db 选择 1

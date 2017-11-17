@@ -7,18 +7,18 @@
  */
 
 return [
-    'CONFIG_PREFIX' => 'CACHE',
-    'DRIVER' => 'Redis',
-    'CACHE_PREFIX' => 'CACHE:',
-    'REDIS' => array(
-        'HOST' => '127.0.0.1',
-        'PORT' => 6379,
-        'PASSWORD' => '',
-        'PERSISTENT' => '',
-        'SELECT' => 1,
+    'config_prefix' => 'cache',
+    'driver' => 'Redis',
+    'cache_prefix' => 'cache:',
+    'Redis' => array(
+        'host' => '127.0.0.1',
+        'port' => 6379,
+        'password' => '',
+        'persistent' => true,
+        'select' => 1,
     ),
-    'MEMCACHED' =>array(
-        'HOST' => '127.0.0.1',
-        'PORT' => 11211,
+    'Mencached' => array(
+        'host' => '127.0.0.1',
+        'port' => 11211,
     ),
 ];

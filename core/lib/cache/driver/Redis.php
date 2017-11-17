@@ -24,10 +24,10 @@ class Redis implements CacheDriverInterface
     public function __construct()
     {
         //获取缓存redis配置
-        $redisOption = Config::get('CACHE.REDIS');
-        if($redisOption == false){
+        $redisOption = Config::get('cache.redis');
+        if ($redisOption == false) {
             //当没有配置缓存redis时,使用默认的redis配置
-            $redisOption = Config::get('REDIS');
+            $redisOption = Config::get('redis');
         }
         $this->handler = RedisConnect::getInstance($redisOption);
     }
@@ -116,7 +116,7 @@ class Redis implements CacheDriverInterface
      */
     public function clear()
     {
-        $key = Config::get('CACHE_PREFIX') . '*';
+        $key = Config::get('cache_prefix') . '*';
         $this->handler->delete($this->handler->keys($key));
     }
 

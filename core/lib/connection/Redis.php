@@ -32,16 +32,16 @@ class Redis
 
     /**
      *
-     * @param array $option  连接的redis的host,port等信息
+     * @param array $option 连接的redis的host,port等信息
      * @param string $config_str 连接特征码
      */
     private static function connect($option, $config_str)
     {
-        $host = $option['HOST'];
-        $port = $option['PORT'];
-        $connect_type = $option['PERSISTENT'] ? 'pconnect' : 'connect';
-        $password = $option['PASSWORD'];
-        $select = $option['SELECT'];
+        $host = $option['host'];
+        $port = $option['port'];
+        $connect_type = $option['persistent'] ? 'pconnect' : 'connect';
+        $password = $option['password'];
+        $select = $option['select'];
         self::$handler[$config_str] = new \Redis();
         self::$handler[$config_str]->$connect_type($host, $port);
         if ($password != '') {
@@ -54,26 +54,26 @@ class Redis
      * @param array|int $option 连接的redis的host,port等信息
      * @return object 连接已连接对象
      */
-    public static function getInstance($option = null)
+    public static function &getInstance($option = null)
     {
         //如果是一个数字,则为默认redis配置和选择的库
-        if(is_numeric($option)){
+        if (is_numeric($option)) {
             $select = $option;
-            $option = Config::get('REDIS');
-            $option['SELECT'] = $select;
-        }else{
+            $option = Config::get('redis');
+            $option['select'] = $select;
+        } else {
             //如果没有传入则使用默认配置
             if (is_null($option)) {
-                $option = Config::get('REDIS');
+                $option = Config::get('redis');
             }
         }
 
-        $host = $option['HOST'];
-        $port = $option['PORT'];
+        $host = $option['host'];
+        $port = $option['port'];
 //        $connect_type = $option['PERSISTENT'];
-        $password = $option['PASSWORD'];
-        $select = $option['SELECT'];
-        $config_str = $host . ':' . $port . ':' . $password . ':' . $select;
+        $password = $option['password'];
+        $select = $option['select'];
+        $config_str = $host . ':' . $port . ':' . ':' . $select;
         if (!isset(self::$handler[$config_str])) {
             self::connect($option, $config_str);
         }

@@ -11,12 +11,12 @@
 /*
  * 程序中如何获取配置文件的值?
  * use core/lib/Config;
- * Config::get('REDIS');  返回数组
- * Config::get('REDIS.HOST');  返回值
+ * Config::get('redis');  返回数组
+ * Config::get('redis.host');  返回值
  */
 return [
     // 调试模式
-    'DEBUG' => true,
+    'debug' => true,
 
     /**
      * CSRF防护,打开后每个 post 请求都需要携带 _token 字段,可以通过 CSRF::getToken()获取token
@@ -28,13 +28,13 @@ return [
     /**
      * redis配置
      */
-    'REDIS' => [
-        'HOST' => '127.0.0.1',
-        'PORT' => '6379',
-        'PASSWORD' => '',
-        'SELECT' => 0,
+    'redis' => [
+        'host' => '127.0.0.1',
+        'port' => '6379',
+        'password' => '',
+        'select' => 0,
         // 是否使用 pconnect
-        'PERSISTENT' => true,
+        'persistent' => true,
     ],
 
 ];

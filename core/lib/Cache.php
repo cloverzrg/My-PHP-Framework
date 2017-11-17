@@ -28,9 +28,9 @@ class Cache
      */
     public static function init()
     {
-        self::$cacheKeyPrefix = Config::get('CACHE.CACHE_PREFIX');
-        $driver = Config::get('CACHE.DRIVER');
-        $class = 'core\\lib\\cache\\driver\\'.$driver;
+        self::$cacheKeyPrefix = Config::get('cache.cache_prefix');
+        $driver = Config::get('cache.driver');
+        $class = 'core\\lib\\cache\\driver\\' . ucfirst($driver);
         return self::$handler = new $class;
     }
 
@@ -58,14 +58,14 @@ class Cache
 
     /**
      * @param string $key
-     * @param string|array $value  数组会json编码
+     * @param string|array $value 数组会json编码
      * @param int $expire 过期时间(秒) 0 为永久
      * @return mixed result
      */
     public static function set($key, $value, $expire = 0)
     {
         $key = self::getCacheKey($key);
-        return self::$handler->set($key, $value,$expire);
+        return self::$handler->set($key, $value, $expire);
     }
 
     /**
@@ -81,8 +81,8 @@ class Cache
     }
 
     /**
-     * @param string $key   自减的key
-     * @param int $step  步长
+     * @param string $key 自减的key
+     * @param int $step 步长
      * @return mixed 完成操作后 $key 的值
      */
     public static function dec($key, $step = 1)
