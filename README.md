@@ -19,7 +19,8 @@
 4. Cache 缓存类
 5. Route 路由类
 6. Redis 单例连接
-
+7. Session 类  
+等..
 
 ### 环境
 1. php7

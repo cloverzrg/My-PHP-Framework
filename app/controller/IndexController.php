@@ -15,6 +15,7 @@ use core\lib\Cache;
 use core\lib\Config;
 use core\lib\connection\Redis;
 use core\lib\CSRF;
+use core\lib\Session;
 
 //use \core\lib\Response;
 
@@ -58,6 +59,13 @@ class IndexController extends Controller
 
         //CSRF token
         echo 'CSRF-Token : ' . CSRF::getToken() . '<br>';
+
+
+        //session
+        $a = array(1 => 2, 3 => 4);
+        Session::set('session_test', $a);
+        p(Session::get('session_test'));
+
 
         p($_SERVER);
 

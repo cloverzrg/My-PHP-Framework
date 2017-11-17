@@ -13,6 +13,10 @@ use core\lib\Config;
 
 class Session
 {
+    /**
+     * 初始化 session
+     * @param array $config
+     */
     public static function init(array $config = [])
     {
         if(empty($config)){
@@ -25,7 +29,7 @@ class Session
         session_start();
     }
 
-    public static function set(string $key, string $value)
+    public static function set(string $key, $value)
     {
         $_SESSION[$key] = $value;
     }
