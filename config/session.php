@@ -11,7 +11,7 @@ return [
     'config_prefix' => 'session',
     'type' => 'Redis',
 
-    'Redis' => [
+    'redis' => [
         'host' => '127.0.0.1',
         'port' => 6379,
         'password' => '',

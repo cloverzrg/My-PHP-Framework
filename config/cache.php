@@ -10,14 +10,14 @@ return [
     'config_prefix' => 'cache',
     'driver' => 'Redis',
     'cache_prefix' => 'cache:',
-    'Redis' => array(
+    'redis' => array(
         'host' => '127.0.0.1',
         'port' => 6379,
         'password' => '',
         'persistent' => true,
         'select' => 1,
     ),
-    'Mencached' => array(
+    'mencached' => array(
         'host' => '127.0.0.1',
         'port' => 11211,
     ),

@@ -23,12 +23,15 @@ class Redis extends SessionHandler
         'expire' => 3600,
         'timeout' => 0,
         'persistent' => true,
-        'session_prefix' => '',
+        'session_prefix' => 'session:',
     ];
 
     public function __construct(array $config = [])
     {
         //覆盖默认值
+        if(is_null($config)){
+            $config = Config::get('session.redis');
+        }
         $this->config = array_merge($this->config, $config);
     }
 
@@ -44,7 +47,7 @@ class Redis extends SessionHandler
 
     public function destroy($session_id)
     {
-        return $this->handle->delete($session_id);
+        return $this->handle->delete($this->config['session_prefix'].$session_id);
     }
 
     public function gc($maxlifetime)
@@ -60,12 +63,12 @@ class Redis extends SessionHandler
 
     public function read($session_id)
     {
-        return $this->handle->get($session_id);
+        return $this->handle->get($this->config['session_prefix'].$session_id);
     }
 
     public function write($session_id, $session_data)
     {
-        return $this->handle->setex($session_id, $this->config['expire'], $session_data);
+        return $this->handle->setex($this->config['session_prefix'].$session_id, $this->config['expire'], $session_data);
     }
 
 }
