@@ -14,15 +14,19 @@ use core\lib\Config;
 class Session
 {
     /**
-     * 初始化 session
+     * 初始化 session, 设置 session 保存方式
      * @param array $config
      */
     public static function init(array $config = [])
     {
-        if(empty($config)){
+        if (empty($config)) {
             $config = Config::get('session');
         }
-        $class = 'core\\lib\\session\\driver\\'.$config['type'];
+        if ($config['type'] == 'default') {
+            // 使用服务器默认保存方式
+            return;
+        }
+        $class = 'core\\lib\\session\\driver\\' . $config['type'];
         ini_set('session.auto_start', 0);
         ini_set('session.save_handler', 'user');
         session_set_save_handler(new $class());

@@ -10,6 +10,7 @@ namespace core\lib\session\driver;
 
 use SessionHandler;
 use core\lib\connection\Redis as RedisConnect;
+use core\lib\Config;
 
 class Redis extends SessionHandler
 {

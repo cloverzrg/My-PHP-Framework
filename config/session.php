@@ -9,6 +9,7 @@
 
 return [
     'config_prefix' => 'session',
+    // 如果使用服务器默认的方式,则type设置为default
     'type' => 'Redis',
 
     'redis' => [
