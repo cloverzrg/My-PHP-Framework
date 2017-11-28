@@ -26,7 +26,7 @@ class Config
      * 不传入参数则返回所有配置
      * 当获取的配置不存在时,默认返回 false
      */
-    public static function get($name = null, $default = false)
+    public static function get($name = null, $default = null)
     {
         if ($name == null) return self::$configData;
         $name_arr = explode('.', $name);
