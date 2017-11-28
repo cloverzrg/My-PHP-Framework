@@ -8,16 +8,16 @@
 
 return [
     'config_prefix' => 'cache',
-    'driver' => 'Redis',
+    'driver' => 'redis',
     'cache_prefix' => 'cache:',
     'redis' => array(
         'host' => '127.0.0.1',
         'port' => 6379,
         'password' => '',
-        'persistent' => true,
-        'select' => 1,
+        'persistent' => false,
+        'select' => 0,
     ),
-    'mencached' => array(
+    'memcached' => array(
         'host' => '127.0.0.1',
         'port' => 11211,
     ),

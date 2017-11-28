@@ -27,6 +27,7 @@ return [
 
     /**
      * redis配置
+     * 当使用 pconnect 的时候，同一个 redis 服务器连接将使用最后一个select的数据库
      */
     'redis' => [
         'host' => '127.0.0.1',
@@ -34,7 +35,7 @@ return [
         'password' => '',
         'select' => 0,
         // 是否使用 pconnect
-        'persistent' => true,
+        'persistent' => false,
     ],
 
 ];

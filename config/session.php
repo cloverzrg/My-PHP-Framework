@@ -16,10 +16,10 @@ return [
         'host' => '127.0.0.1',
         'port' => 6379,
         'password' => '',
-        'select' => 0,
+        'select' => 1,
         'expire' => 3600,
         'timeout' => 0,
-        'persistent' => true,
+        'persistent' => false,
         'session_prefix' => 'session:',
     ]
 ];
