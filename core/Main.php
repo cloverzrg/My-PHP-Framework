@@ -14,6 +14,7 @@ use core\lib\Config;
 use core\lib\Cache;
 use core\lib\CSRF;
 use core\lib\Session;
+use core\lib\Debug;
 
 class Main
 {
@@ -21,6 +22,7 @@ class Main
     // 框架流程控制
     public static function start()
     {
+        Debug::remark("a");
         // 路由
         $controller_name = Route::getController();
         $action_name = Route::getAction();

@@ -16,7 +16,7 @@ use core\lib\Config;
 use core\lib\connection\Redis;
 use core\lib\CSRF;
 use core\lib\Session;
-
+use core\lib\Debug;
 //use \core\lib\Response;
 
 /**
@@ -28,6 +28,7 @@ class IndexController extends Controller
 
     public function index()
     {
+
 
         //Response::send();
         // 获取表单参数
@@ -44,9 +45,9 @@ class IndexController extends Controller
 
         // 获取配置
         // 这里的 p() 函数是打印数组的自定义函数
-        $redis_config = Config::get("redis");
-        echo 'config_test:' ;
-        p($redis_config);
+        $all_config = Config::get();
+        echo 'all_config:' ;
+        p($all_config);
 
         // Redis 连接
         // db 选择 1
@@ -67,6 +68,7 @@ class IndexController extends Controller
 
 
         p($_SERVER);
-
+        Debug::remark("b");
+        echo Debug::getRangeTime('a','b');
     }
 }
