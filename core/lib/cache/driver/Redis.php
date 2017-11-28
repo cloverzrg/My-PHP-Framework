@@ -15,21 +15,31 @@ use core\lib\connection\Redis as RedisConnect;
 
 class Redis implements CacheDriverInterface
 {
-    private $handler;
+    private $handle;
 
+    private $config = [
+        'host' => '127.0.0.1',
+        'port' => 6379,
+        'password' => '',
+        'select' => 0,
+        'expire' => 3600,
+        'timeout' => 0,
+        'persistent' => true,
+        'cache_prefix' => 'cache:',
+    ];
 
     /**
      * Redis constructor.
      */
-    public function __construct()
+    public function __construct($config = null)
     {
         //获取缓存redis配置
-        $redisOption = Config::get('cache.redis');
-        if ($redisOption == false) {
-            //当没有配置缓存redis时,使用默认的redis配置
-            $redisOption = Config::get('redis');
+        //覆盖默认值
+        if(is_null($config)){
+            $config = Config::get('cache.redis');
         }
-        $this->handler = RedisConnect::getInstance($redisOption);
+        $this->config = array_merge($this->config, $config);
+        $this->handle = RedisConnect::getInstance($this->config);
     }
 
 
@@ -41,7 +51,7 @@ class Redis implements CacheDriverInterface
      */
     public function get($key, $default = false)
     {
-        $value = $this->handler->get($key);
+        $value = $this->handle->get($key);
 
         if (is_null($value)) {
             return $default;
@@ -66,9 +76,9 @@ class Redis implements CacheDriverInterface
         }
 
         if (is_int($expire) && $expire) {
-            $result = $this->handler->setex($key, $expire, $value);
+            $result = $this->handle->setex($key, $expire, $value);
         } else {
-            $result = $this->handler->set($key, $value);
+            $result = $this->handle->set($key, $value);
         }
 
         return $result;
@@ -81,7 +91,7 @@ class Redis implements CacheDriverInterface
      */
     public function has($key)
     {
-        if ($this->handler->get($key)) {
+        if ($this->handle->get($key)) {
             return true;
         } else {
             return false;
@@ -96,7 +106,7 @@ class Redis implements CacheDriverInterface
      */
     public function inc($key, $step = 1)
     {
-        return $this->handler->incrby($key, $step);
+        return $this->handle->incrby($key, $step);
     }
 
     /**
@@ -107,7 +117,7 @@ class Redis implements CacheDriverInterface
      */
     public function dec($key, $step = 1)
     {
-        return $this->handler->decrby($key, $step);
+        return $this->handle->decrby($key, $step);
     }
 
     /**
@@ -117,7 +127,7 @@ class Redis implements CacheDriverInterface
     public function clear()
     {
         $key = Config::get('cache_prefix') . '*';
-        $this->handler->delete($this->handler->keys($key));
+        $this->handle->delete($this->handler->keys($key));
     }
 
     /**
@@ -127,7 +137,7 @@ class Redis implements CacheDriverInterface
      */
     public function rm($key)
     {
-        return $this->handler->delete($key);
+        return $this->handle->delete($key);
     }
 
     /**
@@ -135,7 +145,7 @@ class Redis implements CacheDriverInterface
      */
     public function handler()
     {
-        return $this->handler;
+        return $this->handle;
     }
 
 }
