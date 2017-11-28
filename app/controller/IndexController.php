@@ -33,26 +33,25 @@ class IndexController extends Controller
         // 获取表单参数
         $name = Request::get("name");
         $user = Request::post("user");
-        echo $name . '<br>';
-        echo $user . '<br>';
+        echo 'get:'.$name . '<br>';
+        echo 'post:'.$user . '<br>';
 
         // 缓存
         Cache::set("cache_name", 1, 60);
         Cache::inc("cache_name", 2);
         $var = Cache::get("cache_name");
-        echo $var . '<br>';
+        echo 'cache:'.$var . '<br>';
 
         // 获取配置
         // 这里的 p() 函数是打印数组的自定义函数
         $redis_config = Config::get("redis");
+        echo 'config_test:' ;
         p($redis_config);
-        //获取的配置不存在则返回默认值
-        echo Config::get("test.test", 'defaultValue') . '<br>';
 
         // Redis 连接
         // db 选择 1
-        $redis = Redis::getInstance(1);
-        $redis->set("test", "test_value");
+        $redis = Redis::getInstance(3);
+        $redis->set("test", "redis_test_value", 5);
         $var = $redis->get("test");
         echo $var . '<br>';
 
