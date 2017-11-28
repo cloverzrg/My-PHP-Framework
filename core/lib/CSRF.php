@@ -12,6 +12,7 @@ namespace core\lib;
 
 use core\lib\Request;
 use Exception;
+
 class CSRF
 {
     public static $tokenHtmlField = '_token';

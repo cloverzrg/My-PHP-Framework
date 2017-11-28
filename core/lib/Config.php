@@ -16,15 +16,16 @@ class Config
     private static $configData = [];
 
     /**
-     * @param string $name
-     * @param mixed $default
-     * @return string|array
      * 当获取的值是数组时,返回数组
      * 当获取的是具体值,则返回值
      * get('REDIS.HOST')返回值,
      * get('REDIS')返回数组
      * 不传入参数则返回所有配置
      * 当获取的配置不存在时,默认返回 false
+     *
+     * @param string $name
+     * @param mixed $default
+     * @return string|array
      */
     public static function get($name = null, $default = null)
     {

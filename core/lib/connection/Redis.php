@@ -54,7 +54,7 @@ class Redis
      * @param array|int $option 连接的redis的host,port等信息
      * @return object 连接已连接对象
      */
-    public static function &getInstance($option = null)
+    public static function getInstance($option = null)
     {
         //如果是一个数字,则为默认redis配置和选择的库
         if (is_numeric($option)) {
@@ -73,7 +73,7 @@ class Redis
 //        $connect_type = $option['PERSISTENT'];
         $password = $option['password'];
         $select = $option['select'];
-        $config_str = $host . ':' . $port . ':' . ':' . $select;
+        $config_str = $host . ':' . $port . ':' . $select;
         if (!isset(self::$handler[$config_str])) {
             self::connect($option, $config_str);
         }
